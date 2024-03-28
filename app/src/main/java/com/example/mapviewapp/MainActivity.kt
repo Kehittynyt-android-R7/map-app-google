@@ -1,10 +1,6 @@
 package com.example.mapviewapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,22 +10,51 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
+import com.example.mapviewapp.ui.theme.MapviewAppTheme
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    //Muuttuja Google maps kartan säilyttämiseen
-    private var googleMap: GoogleMap? = null
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //etsii SupportMapFragmentin ja asettaa sen osaksi aktiviteettia
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragManager) as SupportMapFragment
-        mapFragment.getMapAsync(this) // Kutsuu onMapReady-metodia, kun kartta on valmis
+        setContent {
+            MapviewAppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MyMap()
+                }
+            }
+        }
     }
+}
 
-    // Metodi, joka kutsutaan, kun kartta on valmis
-    override fun onMapReady(googleMap: GoogleMap) {
-        this.googleMap = googleMap // Tallentaa kartan muuttujaan
+@Composable
+fun MyMap(modifier: Modifier = Modifier) {
+    val singapore = LatLng(1.35, 103.87)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(singapore, 10f)
     }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = MarkerState(position = singapore),
+            title = "Singapore",
+            snippet = "Marker in Singapore"
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MapPreview(){
+    MyMap()
 }

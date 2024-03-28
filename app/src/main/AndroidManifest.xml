@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapviewApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.MapviewApp" />
         <!-- Määrittelee Google Maps palvelun API-avaimen, joka tarvitaan Google mapsin käyttöön sovelluksessasi. -->
         <!-- API-avain on välttämätön, jotta Google Maps voi toimii -->
         <meta-data
