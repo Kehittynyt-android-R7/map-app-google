@@ -21,7 +21,7 @@
         <!-- API-avain on välttämätön, jotta Google Maps voi toimii -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="API AVAIN TÄHÄN" />
+            android:value="${GOOGLE_KEY}" />
 
         <activity
             android:name=".MainActivity"
