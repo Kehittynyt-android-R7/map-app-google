@@ -84,8 +84,8 @@ fun MyMap(context: Context) {
         if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true || permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
             val locationRequest = LocationRequest.create().apply {
                 priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                interval = 1000 // Update location every second
-                fastestInterval = 500 // Fastest update interval
+                interval = 1000 //päivittää sijainnin joka sekuntti
+                fastestInterval = 500 //päivitysten nopein väli
             }
             fetchLocation(cameraPositionState, context, markerState, setLatitude, setLongitude)
             requestLocationUpdates(context, markerState, cameraPositionState, locationRequest, setLatitude, setLongitude)
@@ -95,7 +95,7 @@ fun MyMap(context: Context) {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(singapore, 10f)
         }
     }
-    // Request location permission when the composable is launched
+    // kysyy sijantilupaa käyttäjältä
     LaunchedEffect(Unit) {
         locationPermissionRequest.launch(
             arrayOf(
