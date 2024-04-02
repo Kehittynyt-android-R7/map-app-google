@@ -1,8 +1,7 @@
-import java.util.Properties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -20,17 +19,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        //load the values from .properties file
-        val mapsKeyFile = project.rootProject.file("apikeys.properties")
-        val properties = Properties()
-        properties.load(mapsKeyFile.inputStream())
-
-        //fetch the map key
-        val apiKey = properties.getProperty("MAP_API_KEY") ?: ""
-
-        //inject the key dynamically into the manifest
-        manifestPlaceholders["GOOGLE_KEY"] = apiKey
     }
 
     buildTypes {
